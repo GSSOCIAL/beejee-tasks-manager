@@ -166,7 +166,7 @@ class Controller{
         $post=array();
         
         foreach($data as $field=>$value){
-            $post[$field]=$value;
+            $post[$field]=addslashes($value);
             if(property_exists($this->focus,"modified_by") && in_array($field,$this->focus->modified_by) && $this->focus->{$field} != $value){
                 $post["modified"]="1";
             }
@@ -186,7 +186,7 @@ class Controller{
         $post=array();
         
         foreach($data as $field=>$value){
-            $post[$field]=$value;
+            $post[$field]=addslashes($value);
         }
 
         $result = $db->insert($this->focus->table,$post);
@@ -199,11 +199,12 @@ class Controller{
      * @return Controller
      */
     static function getController($module){
-        $ControllerName =  ucfirst($module) . "Controller";
+        $module = ucfirst($module);
+        $ControllerName =  "{$module}Controller";
         $controller = new Controller();
 
-        if(file_exists("modules/{$module}/controller.php")){
-            require_once "modules/{$module}/controller.php";
+        if(file_exists("modules/{$module}/Controller.php")){
+            require_once "modules/{$module}/Controller.php";
             if(class_exists($ControllerName)){
                 $controller = new $ControllerName($module);
             }

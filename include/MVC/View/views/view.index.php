@@ -59,7 +59,10 @@ class IndexView extends View{
         if($query){
             $data = array();
             while($row = $query->fetch_assoc()){
-                $data[]=$row;
+                $data[]=array_map(function($item){
+                    if($item == "NULL") return NULL;
+                    return $item;
+                },$row);
             }
             $this->s->assign("list",$data);
         }

@@ -16,11 +16,13 @@ class View{
 
     public function get_metadata(){
         if($this->module){
-            if(file_exists("modules/{$this->module}/metadata/{$this->view}view.php")){
-                require_once "modules/{$this->module}/metadata/{$this->view}view.php";
+            $view = strtolower($this->view);
+
+            if(file_exists("modules/{$this->module}/metadata/{$view}view.php")){
+                require_once "modules/{$this->module}/metadata/{$view}view.php";
                 if(isset($metadata) && is_array($metadata) && array_key_exists($this->module,$metadata)){
                     if(is_array($metadata[$this->module]) && array_key_exists(ucfirst($this->view),$metadata[$this->module])){
-                        $this->metadata_file = "modules/{$this->module}/metadata/{$this->view}view.php";
+                        $this->metadata_file = "modules/{$this->module}/metadata/{$view}view.php";
                         $this->metadata = $metadata[$this->module][ucfirst($this->view)];
                     }
                 }
@@ -77,6 +79,7 @@ class View{
      * @return View
      */
     static function getView($view_name="index",$module=null,$focus=null){
+        $view_name = strtolower($view_name);
         $ControllerName =  ucfirst($view_name) . "View";
         $view = null;
         $template = null;

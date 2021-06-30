@@ -19,6 +19,8 @@ class FieldEnum extends Field{
         if(!empty($this->list)){
             if(array_key_exists($this->list,$app_strings) && array_key_exists($value,$app_strings[$this->list])){
                 $value = $app_strings[$this->list][$value];
+            }elseif(array_key_exists($this->list,$app_strings) && array_key_exists('',$app_strings[$this->list]) && empty($value)){
+                $value = $app_strings[$this->list][''];
             }
         }
         $this->s->assign("list_value",$value);
