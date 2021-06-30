@@ -22,7 +22,6 @@ if(!is_dir("cache")){
 }
 
 require_once "include/utils.php";
-require_once "include/modules.php";
 require_once "include/locale.php";
 
 require_once "include/TemplateHandler.php";

@@ -3,7 +3,10 @@
     <div class="application-navigation">
         <ul class="navigation">
             <li class="selected">
-                <a href="/">{$APP.NAV_TASKS}</a>
+                <a href="index.php?module=Tasks&action=index">{$APP.NAV_TASKS}</a>
+            </li>
+            <li class="button">
+                <a href="index.php?module=Tasks&action=edit">{$APP.CREATE_TASK}</a>
             </li>
         </ul>
     </div>

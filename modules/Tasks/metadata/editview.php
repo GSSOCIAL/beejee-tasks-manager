@@ -1,0 +1,12 @@
+<?php
+$metadata["Tasks"]["Edit"]=array(
+    "panels"=>array(
+        array(
+            "name",
+            "email"
+        ),
+        array(
+            "description"
+        )
+    )
+);
