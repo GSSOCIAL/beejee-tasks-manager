@@ -1,1 +1,1 @@
-<input type="email" />
+<input type="email" name="{$name}" />

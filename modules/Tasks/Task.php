@@ -1,6 +1,6 @@
 <?php
 class Task extends Model{
-    protected $table = "tasks";
+    public $table = "tasks";
     public $defs = array(
         "name"=>array(
             "name"=>"name",

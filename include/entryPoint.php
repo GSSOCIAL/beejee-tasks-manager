@@ -25,4 +25,11 @@ require_once "include/utils.php";
 require_once "include/locale.php";
 
 require_once "include/TemplateHandler.php";
+require_once "include/Fields/Field.php";
+
+require_once "include/notifications.php";
+$notifications = new Notifications();
+require_once "include/db.php";
+$db = new DBManager();
+
 require_once "include/MVC/Application.php";

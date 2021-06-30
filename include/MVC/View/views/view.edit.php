@@ -35,7 +35,13 @@ class EditView extends View{
         $this->s->assign("panels",$panels);
 
         $actions = array();
+        if(empty($actions)){
+            $actions[] = "SAVE";
+        }
         $this->s->assign("actions",$actions);
+        $this->s->assign("title","Создать задачу");
+        $this->s->assign("module",$this->module);
+        $this->s->assign("focus",$this->focus);
         return $this;
     }
 }

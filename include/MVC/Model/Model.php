@@ -1,5 +1,8 @@
 <?php
 class Model{
+    public $id = null;
+    public $deleted = false;
+    
     function retrieve($id=1){
 
     }

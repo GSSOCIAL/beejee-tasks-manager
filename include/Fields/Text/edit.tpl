@@ -1,1 +1,1 @@
-<textarea></textarea>
+<textarea name="{$name}" ></textarea>

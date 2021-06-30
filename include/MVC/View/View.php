@@ -10,6 +10,11 @@ class View{
     public $module = null;
 
     public function pre_display(){
+        $this->get_metadata();
+        return $this;
+    }
+
+    public function get_metadata(){
         if($this->module){
             if(file_exists("modules/{$this->module}/metadata/{$this->view}view.php")){
                 require_once "modules/{$this->module}/metadata/{$this->view}view.php";
@@ -21,12 +26,9 @@ class View{
                 }
             }
         }
-        return $this;
     }
 
     public function display(){
-        require_once "include/Fields/Field.php";
-
         $this->pre_display();
         if(!empty($this->template) && file_exists($this->template)){
             $this->s->display($this->template);

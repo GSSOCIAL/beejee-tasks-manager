@@ -10,6 +10,10 @@ class Field{
     public $length = 200;
     public $view = "detail";
 
+    public $validated=false;
+    public $validation_error=null;
+    public $value=null;
+
     public function display(){
         $this->s = new Smarty();
         $this->s->template_dir = "/";
@@ -24,6 +28,11 @@ class Field{
         if(file_exists("include/Fields/".ucfirst($this->type)."/".strtolower($this->view).".tpl")){
             $template = "include/Fields/".ucfirst($this->type)."/".strtolower($this->view).".tpl";
         }
+
+        $this->s->assign("name",$this->name);
+        $this->s->assign("label",$this->label);
+        $this->s->assign("required",$this->required);
+
         $this->s->display($template);
     }
 
@@ -35,6 +44,28 @@ class Field{
             if(array_key_exists("label",$defs)) $this->label = trim($defs['label']);
         }
         return $this;
+    }
+
+    /**
+     * Проверяет и форматирует данные
+     */
+    public function validate(){
+        $value=array_key_exists($this->name,$_REQUEST)?strip_tags($_REQUEST[$this->name]):null;
+        if($this->required && empty($value)){
+            $this->validated=false;
+            $this->validation_error = "Поле {$this->label} обязательно";
+            return false;
+        }
+        if(!empty($this->value)){
+            if(!empty($this->length) && mb_strlen($value)>$this->length){
+                $this->validated=false;
+                $this->validation_error = "Поле {$this->label} не должно быть больше {$this->length} знаков";
+                return false;
+            }
+        }
+        $this->value = trim(htmlspecialchars_decode($value));
+        $this->validated = true;
+        return true;
     }
 
     static function getField($type="varchar",$defs=array()){

@@ -4,6 +4,7 @@ body{
     font-size: 15px;
     background: #f5f7fb;
     color:#0c0f31;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 body *{
     box-sizing: border-box;
@@ -62,4 +63,148 @@ body > .application-container > .application-header .application-navigation ul >
 }
 body > .application-container > .application-header .application-header-actions{
 
+}
+.edit-view{
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+}
+.edit-view .edit-view-header{
+    margin-bottom: 20px;
+}
+.edit-view .edit-view-header h1{
+    margin: 0px;
+}
+.edit-view-rows{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap:10px;
+}
+.edit-view-rows > .edit-view-row{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:20px;
+}
+.edit-view-rows > .edit-view-row .edit-view-field-wrapper{
+    display:flex;
+    flex-direction: row;
+}
+
+.edit-view-rows > .edit-view-row .edit-view-label{
+    color:#656565;
+    width:200px;
+    min-width: 200px;
+    padding-right: 10px;
+    font-size: 13px;
+}
+.edit-view-rows > .edit-view-row .edit-view-field{
+    width:100%;
+    flex:1;
+}
+form .input-wrapper{
+    width:100%;
+}
+form input[type="text"],form input[type="number"],form input[type="email"],form input[type="password"],form select,form textarea{
+    width:100%;
+    border:1px solid #e5e6e7;
+    box-shadow: none;
+    outline: none;
+    padding:7px;
+    resize: vertical;
+}
+form input[type="text"]:focus,form input[type="number"]:focus,form input[type="email"]:focus,form input[type="password"]:focus,form select:focus,form textarea:focus{
+    border-color:#1ab394 ;
+}
+form input[type="submit"],.button,button,input[type="button"]{
+    background-color: #1c84c6;
+    border-color: #1c84c6;
+    color: #FFFFFF;
+    border-radius: 2px;
+    outline: none;
+    box-shadow: 0px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-width: 1px;
+    border-style: solid;
+    line-height: 1.5;
+}
+form input[type="submit"].primary,.button.primary,button.primary,input[type="button"].primary{
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: #FFFFFF;
+}
+form input[type="submit"]:hover,.button:hover,button:hover,input[type="button"]:hover{
+    background-color: #1a7bb9;
+    border-color: #1a7bb9;
+    color: #FFFFFF;
+}
+form input[type="submit"].primary:hover,.button.primary:hover,button.primary:hover,input[type="button"].primary:hover{
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+.notifications-container{
+    display: inline-block;
+    width:100%;
+}
+.notifications-container > .notification-wrapper{
+    display: inline-block;
+    width:100%;
+    border-radius: 4px;
+    margin: 5px 0px 10px;
+    padding: 8px;
+    min-width: 48px;
+    color:#000;
+    background: rgb(222, 235, 255);
+    display: flex;
+    font-size: 14px;
+    flex-direction: row;
+}
+.notifications-container > .notification-wrapper > .notification-icon{
+    height: 24px;
+    width: 24px;
+    box-sizing: content-box;
+    padding-right: 8px;    
+    position: relative;
+}
+.notifications-container > .notification-wrapper > .notification-icon > .icon-wrapper{
+    
+}
+.notifications-container > .notification-wrapper > div.notification-body{
+    margin: 1px 0px;
+    flex: 1 0 0px;
+}
+.notifications-container > .notification-wrapper svg{
+    fill:#0052cc;
+}
+.notifications-container > .notification-wrapper.notification-info{
+    background: rgb(222, 235, 255);
+}
+.notifications-container > .notification-wrapper.notification-info svg{
+    fill:#0052cc;
+}
+.notifications-container > .notification-wrapper.notification-note{
+    background: rgb(234, 230, 255);
+}
+.notifications-container > .notification-wrapper.notification-note svg{
+    fill:#5243aa;
+}
+.notifications-container > .notification-wrapper.notification-warn{
+    background: rgb(255, 250, 230)
+}
+.notifications-container > .notification-wrapper.notification-warn svg{
+    fill:#ff991f;
+}
+.notifications-container > .notification-wrapper.notification-success{
+    background: rgb(227, 252, 239);
+}
+.notifications-container > .notification-wrapper.notification-success svg{
+    fill:#00875a;
+}
+.notifications-container > .notification-wrapper.notification-error{
+    background: rgb(255, 235, 230);
+}
+.notifications-container > .notification-wrapper.notification-error svg{
+    fill:#de350b;
 }

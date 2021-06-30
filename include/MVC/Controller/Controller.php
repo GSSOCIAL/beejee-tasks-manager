@@ -39,7 +39,7 @@ class Controller{
     public function execute(){
         //Проверяем, есть ли такой экшн
         $actionName = "action_{$this->action}";
-        if(property_exists($this,$actionName) && is_callable($this->{$actionName})){
+        if(method_exists($this,$actionName)){
             $this->{$actionName}();
             return $this;
         }
@@ -48,7 +48,6 @@ class Controller{
         if(array_key_exists($this->action,$this->views_map)){
             $this->view = $this->views_map[$this->action];
             $this->viewFactory = View::getView($this->view,$this->module,$this->focus);
-            $this->viewFactory->display();
             return $this;
         }
 
@@ -56,6 +55,15 @@ class Controller{
         return $this;
     }
 
+    public function display(){
+        global $notifications;
+        $notifications->process();
+
+        if($this->viewFactory && $this->viewFactory instanceof View){
+            $this->viewFactory->display();
+        }
+        return $this;
+    }
     /**
      * Список доступных вьюх
      * @return Array
@@ -66,6 +74,83 @@ class Controller{
             require_once "modules/{$this->module}/viewsmap.php";
         }
         return $viewsmap;
+    }
+
+    public function action_save(){
+        global $notifications,$db;
+        $update = true;
+        if(empty($this->focus->id)){
+            $update = false;
+        }
+
+        $view = View::getView("edit",$this->module,$this->focus);
+        $view->get_metadata();
+
+        //Соберем изменения
+        if($view->metadata && array_key_exists("panels",$view->metadata)){
+            $fields = array();
+            $data = array();
+            $errors = array();
+
+            foreach($view->metadata["panels"] as $rows){
+                $fields = array_merge($fields,$rows);
+            }
+
+            //Валидация и обработка полей
+            foreach($fields as $fieldname){
+                $defs = $this->focus->defs[$fieldname];
+                if(is_array($defs)){
+                    $field = Field::getField($defs["type"],$defs);
+                    if($field){
+                        $value = $field->validate();
+                        if($field->validated){
+                            $data[$field->name]=$field->value;
+                        }else{
+                            $errors[]=$field->validation_error;
+                        }
+                    }
+                }
+            }
+
+            //Есть ошибки
+            if(!empty($errors)){
+                foreach($errors as $error){
+                    $notifications->add("error",$error);
+                }
+                Application::redirect($this->module,"edit",$this->focus->id);
+            }elseif(!empty($data)){
+                if($update){
+                    $this->update_bean($data);
+                }else{
+                    $this->insert_bean($data);
+                }
+            }
+        }
+
+        $action = "detail";
+        if(array_key_exists("return_action",$_REQUEST)){
+            $action = $_REQUEST["return_action"];
+        }
+        Application::redirect($this->module,$action,$this->focus->id);
+    }
+
+    function update_bean($data){
+
+    }
+
+    /**
+     * Дополнительный обработчик запросов для записей - конвертация полей в бд значения
+     */
+    function insert_bean($data){
+        global $db;
+        $post=array();
+        
+        foreach($data as $field=>$value){
+            $post[$field]=$value;
+        }
+
+        $result = $db->insert($this->focus->table,$post);
+        return $result;
     }
 
     /**
