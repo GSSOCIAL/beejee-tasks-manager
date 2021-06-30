@@ -4,6 +4,7 @@ $metadata["Tasks"]["Index"]=array(
         "name",
         "email",
         "description",
-        "status"
+        "status",
+        "modified"
     )
 );

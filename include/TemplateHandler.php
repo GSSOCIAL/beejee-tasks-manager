@@ -15,6 +15,7 @@ class TemplateHandler{
         global $mod_strings,$app_strings;
         $this->s->assign("MOD",$mod_strings);
         $this->s->assign("APP",$app_strings);
+        $this->s->assign("is_authentificated",!empty($current_user->id));
         $this->s->assign("is_admin",$current_user->is_admin);
     }
 

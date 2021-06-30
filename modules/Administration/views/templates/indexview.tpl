@@ -1,6 +1,6 @@
 <h1>Управление задачами</h1>
 <div class="tasks-admin-view">
-    <table>
+    <table class="list-view">
         <thead>
             <tr>
                 <th width="15%">Автор</th>

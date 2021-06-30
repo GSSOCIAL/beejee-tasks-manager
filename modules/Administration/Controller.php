@@ -4,7 +4,7 @@ class AdministrationController extends Controller{
         global $current_user;
         //Есть ли доступ?
         if(!$current_user->is_admin){
-            Application::redirect();
+            Application::redirect("Users","login");
         }
     }
     function action_index(){

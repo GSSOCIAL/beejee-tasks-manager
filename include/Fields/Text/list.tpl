@@ -1,0 +1,1 @@
+{$value|mb_substr:0:30}

@@ -73,7 +73,13 @@ class Controller{
     }
 
     public function action_save(){
-        global $notifications,$db;
+        global $notifications,$db,$current_user;
+        if(array_key_exists("gate",$_REQUEST) && $_REQUEST["gate"]=='true'){
+            //Есть ли доступ?
+            if(!$current_user->is_admin){
+                Application::redirect("Users","login");
+            }
+        }
         $update = true;
         if(empty($this->focus->id)){
             $update = false;
@@ -136,6 +142,8 @@ class Controller{
             if(!$result){
                 $notifications->add("error","Не удалось обновить запись");
                 Application::redirect($this->module,"edit",$this->focus->id);
+            }else{
+                $notifications->add("success","Запись обновлена!");
             }
         }
 
@@ -159,7 +167,12 @@ class Controller{
         
         foreach($data as $field=>$value){
             $post[$field]=$value;
+            if(property_exists($this->focus,"modified_by") && in_array($field,$this->focus->modified_by) && $this->focus->{$field} != $value){
+                $post["modified"]="1";
+            }
         }
+
+        if(!property_exists($this->focus,"modified_by")) $post["modified"]="1";
 
         $result = $db->update($this->focus->table,$post,array("id"=>$this->focus->id));
         return $result;

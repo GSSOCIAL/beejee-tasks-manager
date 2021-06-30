@@ -5,6 +5,8 @@
         <input type="hidden" name="return_module" value="Administration" />
         <input type="hidden" name="return_action" value="index" />
         <input type="hidden" name="id" value="{$focus->id}" />
+        <input type="hidden" name="gate" value="true" />
+
         <div class="edit-view-header">
             <h1>Редактировать задачу</h1>
         </div>
@@ -57,10 +59,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="edit-view-field-wrapper">
+                    <div class="edit-view-label">
+                        <label>Отредактирована администратором</label>
+                    </div>
+                    <div class="edit-view-field">
+                        <div class="field-wrapper">
+                            {if $focus->modified}
+                                <input type="checkbox" disabled checked />
+                            {else}
+                                <input type="checkbox" disabled/>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="edit-view-actions">
             <input type="submit" name="submit" class="primary" value="Обновить" />
+            
         </div>
     </form>
 </div>

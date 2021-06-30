@@ -45,6 +45,7 @@ body > .application-container > .application-header .application-navigation{
     width:100%;
     flex:1;
     padding:10px 30px;
+    display:flex;
 }
 body > .application-container > .application-header .application-navigation ul{
     margin:0px;
@@ -55,6 +56,7 @@ body > .application-container > .application-header .application-navigation ul{
 body > .application-container > .application-header .application-navigation ul > li{
     float:left;
     padding:0px !important;
+    border: 1px solid transparent;
 }
 body > .application-container > .application-header .application-navigation ul > li > a{
     cursor: pointer;
@@ -62,6 +64,10 @@ body > .application-container > .application-header .application-navigation ul >
     text-decoration: none;
     display: inline-block;
     color:inherit;
+    font-size:12px;
+}
+body > .application-container > .application-header .application-navigation ul > li:not(.button) > a:hover{
+    color:#1c84c6;
 }
 
 body > .application-container > .application-header .application-header-actions{
@@ -104,7 +110,13 @@ body > .application-container > .application-header .application-header-actions{
     width:100%;
     flex:1;
 }
-
+.edit-view-rows > .edit-view-row .edit-view-field .field-wrapper > span{
+    color:#656565;
+    font-size:13px;
+}
+.edit-view-actions{
+    margin-top:20px;
+}
 form .input-wrapper{
     width:100%;
 }
@@ -132,6 +144,7 @@ form input[type="submit"],.button,button,input[type="button"]{
     border-width: 1px;
     border-style: solid;
     line-height: 1.5;
+    text-decoration: none;
 }
 form input[type="submit"]:hover,.button:hover,button:hover,input[type="button"]:hover{
     background-color: #1a7bb9;
@@ -157,6 +170,16 @@ form input[type="submit"].default:hover,.button.default:hover,button.default:hov
     background-color: #bababa;
     border-color: #bababa;
     color: #FFFFFF;
+}
+form input[type="submit"].danger,.button.danger,button.danger,input[type="button"].danger{
+    background: #e53935;
+    border-color: #c62828;
+    color: #FFFFFF;
+}
+form input[type="submit"].danger:hover,.button.danger:hover,button.danger:hover,input[type="button"].danger:hover{
+    color: #fff;
+    background-color: #c62828;
+    border-color: #b71c1c;
 }
 .notifications-container{
     display: inline-block;
@@ -291,27 +314,68 @@ form input[type="submit"].default:hover,.button.default:hover,button.default:hov
     background: #fff;
     padding:30px;
 }
-.tasks-admin-view > table{
+table.list-view{
     font-size: 13px;
     width:100%;
     text-align: left;
     border-spacing: 0px;
+    background: #fff;
 }
-.tasks-admin-view > table thead tr{
+table.list-view thead tr{
 
 }
-.tasks-admin-view > table tbody tr{
+table.list-viewtbody tr{
 
 }
-.tasks-admin-view > table tbody tr:nth-child(odd){
+table.list-view tbody tr:nth-child(odd){
     background: #f9f9f9;
 }
-.tasks-admin-view > table tbody tr:nth-child(even){
+table.list-view tbody tr:nth-child(even){
     
 }
 
-.tasks-admin-view > table td,.tasks-admin-view > table th{
+table.list-view td,table.list-view th{
     padding:8px;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+table.list-view thead th button.sorting{
+    background: transparent;
+    padding: 0px;
+    margin: 0px;
+    cursor: pointer;
+    border:0px;
+    width:8px;
+    height:10px;
+    position: relative;
+    color: transparent;
+    overflow: hidden;
+    line-height: normal;
+    font-size: 0px;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+table.list-view thead th button.sorting:before{
+    content:"";
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #c2c2c2;    
+    position: absolute;
+    top: 0px;
+    left:0px;
+}
+table.list-view thead th button.sorting:after{
+    content:"";
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #c2c2c2;    
+    position: absolute;
+    bottom: 0px;
+    left:0px;
+}
+table.list-view thead th .sorting.active.ASC:before{
+    border-bottom-color:#1c84c6;
+}
+table.list-view thead th .sorting.active.DESC:after{
+    border-top-color:#1c84c6;
 }

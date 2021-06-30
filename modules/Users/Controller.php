@@ -3,6 +3,13 @@ class UsersController extends Controller{
     function action_login(){
         $this->view = "Login";
     }
+    function action_logout(){
+        if(!session_id()){
+            session_start();
+        }
+        $_SESSION["user"] = null;
+        Application::redirect();
+    }
     function action_auth(){
         global $notifications,$db;
         $login = null;

@@ -1,0 +1,1 @@
+<input type="checkbox" disabled {if $value}checked{/if}/>

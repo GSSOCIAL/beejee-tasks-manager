@@ -1,1 +1,1 @@
-<span class="text-large">{$value}</span>
+<span>{$list_value}</span>

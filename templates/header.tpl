@@ -11,8 +11,13 @@
         </ul>
     </div>
     <div class="application-header-actions">
-        {if $is_admin}
-        <a href="index.php?module=Administration&action=index" class="button primary">Администрирование</a>
+        {if !$is_authentificated}
+        <a href="index.php?module=Users&action=login" class="button primary">Войти</a>
+        {else}
+            {if $is_admin}
+            <a href="index.php?module=Administration&action=index" class="button primary">Администрирование</a>
+            {/if}
+            <a href="index.php?module=Users&action=logout" class="button danger">Выйти</a>
         {/if}
     </div>
 </div>

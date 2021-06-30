@@ -7,13 +7,15 @@ class Task extends Model{
             "label"=>"Автор",
             "type"=>"varchar",
             "required"=>true,
-            "length"=>64
+            "length"=>64,
+            "sorting"=>true
         ),
         "email"=>array(
             "name"=>"email",
             "label"=>"Адрес эл. почты",
             "type"=>"email",
             "required"=>true,
+            "sorting"=>true
         ),
         "description"=>array(
             "name"=>"description",
@@ -25,8 +27,16 @@ class Task extends Model{
             "name"=>"status",
             "label"=>"Статус",
             "type"=>"enum",
-            "required"=>true,
-            "list"=>"tasks_status"
+            "required"=>false,
+            "list"=>"tasks_status",
+            "sorting"=>true
+        ),
+        "modified"=>array(
+            "name"=>"modified",
+            "label"=>"Редактировано администратором",
+            "type"=>"bool",
+            "required"=>false,
         ),
     );
+    public $modified_by = array("description");
 }

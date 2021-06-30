@@ -2,6 +2,7 @@
 require_once "include/Fields/Email/Email.php";
 require_once "include/Fields/Text/Text.php";
 require_once "include/Fields/Enum/Enum.php";
+require_once "include/Fields/Bool/Bool.php";
 
 class Field{
     public $name = "";
@@ -35,7 +36,13 @@ class Field{
         $this->s->assign("required",$this->required);
         $this->s->assign("value",$this->value);
 
+        $this->pre_display();
+
         $this->s->display($template);
+    }
+
+    public function pre_display(){
+        return $this;
     }
 
     public function setup($defs){
