@@ -133,20 +133,30 @@ form input[type="submit"],.button,button,input[type="button"]{
     border-style: solid;
     line-height: 1.5;
 }
-form input[type="submit"].primary,.button.primary,button.primary,input[type="button"].primary{
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-    color: #FFFFFF;
-}
 form input[type="submit"]:hover,.button:hover,button:hover,input[type="button"]:hover{
     background-color: #1a7bb9;
     border-color: #1a7bb9;
+    color: #FFFFFF;
+}
+form input[type="submit"].primary,.button.primary,button.primary,input[type="button"].primary{
+    background-color: #5cb85c;
+    border-color: #4cae4c;
     color: #FFFFFF;
 }
 form input[type="submit"].primary:hover,.button.primary:hover,button.primary:hover,input[type="button"].primary:hover{
     color: #fff;
     background-color: #449d44;
     border-color: #398439;
+}
+form input[type="submit"].default,.button.default,button.default,input[type="button"].default{
+    background-color: #c2c2c2;
+    border-color: #c2c2c2;
+    color: #FFFFFF;
+}
+form input[type="submit"].default:hover,.button.default:hover,button.default:hover,input[type="button"].default:hover{
+    background-color: #bababa;
+    border-color: #bababa;
+    color: #FFFFFF;
 }
 .notifications-container{
     display: inline-block;
@@ -211,4 +221,33 @@ form input[type="submit"].primary:hover,.button.primary:hover,button.primary:hov
 }
 .notifications-container > .notification-wrapper.notification-error svg{
     fill:#de350b;
+}
+.tasks-list{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap:20px;
+}
+.tasks-list .task-item{
+    background: #fff;
+    border-radius: 10px;
+    padding:15px;
+}
+.tasks-list .task-item .author{
+    margin-bottom: 5px;
+}
+.tasks-list .task-item .author div.name{
+    font-weight: bold;
+}
+.tasks-list .task-item .author div.author-address{
+    font-size: 13px;
+    color:#656565;
+}
+.tasks-list .task-item .task-content{
+    
+}
+.pagination{
+    margin-top: 20px;
+}
+.pagination input[type="submit"]{
+
 }

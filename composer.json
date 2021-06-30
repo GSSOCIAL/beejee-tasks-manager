@@ -16,7 +16,7 @@
       "sort-packages": true
     },
     "require": {
-      "smarty/smarty": "^2.6"
+      "smarty/smarty": "*"
     },
     "scripts": {},
     "prefer-stable": true,

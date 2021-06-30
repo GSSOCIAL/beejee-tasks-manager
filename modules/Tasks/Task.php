@@ -4,7 +4,7 @@ class Task extends Model{
     public $defs = array(
         "name"=>array(
             "name"=>"name",
-            "label"=>"Имя",
+            "label"=>"Автор",
             "type"=>"varchar",
             "required"=>true,
             "length"=>64

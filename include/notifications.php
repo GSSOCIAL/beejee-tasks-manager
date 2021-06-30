@@ -53,7 +53,7 @@ class Notifications implements \Iterator{
         $s = new Smarty();
         $s->template_dir = "/";
         $s->compile_dir = "cache/templates";
-        $s->plugins_dir[] = "include/smarty/functions";
+        $this->s->addPluginsDir("include/smarty/functions");
         if(!is_dir("cache/templates")){
             mkdir("cache/templates");
         }

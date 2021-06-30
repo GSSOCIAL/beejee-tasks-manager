@@ -44,8 +44,8 @@ class View{
         $this->s = new Smarty();
         $this->s->template_dir = "/";
         $this->s->compile_dir = "cache/templates";
-        $this->s->plugins_dir[] = "include/smarty/functions";
-
+        $this->s->addPluginsDir("include/smarty/functions");
+        
         if(!is_dir("cache/templates")){
             mkdir("cache/templates");
         }
