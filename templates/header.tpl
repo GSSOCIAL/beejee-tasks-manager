@@ -10,5 +10,9 @@
             </li>
         </ul>
     </div>
-    <div class="application-header-actions"></div>
+    <div class="application-header-actions">
+        {if $is_admin}
+        <a href="index.php?module=Administration&action=index" class="button primary">Администрирование</a>
+        {/if}
+    </div>
 </div>

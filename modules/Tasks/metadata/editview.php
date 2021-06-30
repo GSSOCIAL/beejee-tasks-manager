@@ -1,5 +1,8 @@
 <?php
 $metadata["Tasks"]["Edit"]=array(
+    "hidden"=>array(
+        "status"
+    ),
     "panels"=>array(
         array(
             "name",

@@ -1,6 +1,7 @@
 <?php
 require_once "include/Fields/Email/Email.php";
 require_once "include/Fields/Text/Text.php";
+require_once "include/Fields/Enum/Enum.php";
 
 class Field{
     public $name = "";

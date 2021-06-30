@@ -3,6 +3,7 @@ class TemplateHandler{
     public $s = null;
 
     function setup(){
+        global $current_user;
         if(!class_exists("Smarty")){
             die("Smarty not initialized. Please, run composer update");
         }
@@ -14,6 +15,7 @@ class TemplateHandler{
         global $mod_strings,$app_strings;
         $this->s->assign("MOD",$mod_strings);
         $this->s->assign("APP",$app_strings);
+        $this->s->assign("is_admin",$current_user->is_admin);
     }
 
     function display(){

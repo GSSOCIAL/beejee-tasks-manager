@@ -65,7 +65,7 @@ body > .application-container > .application-header .application-navigation ul >
 }
 
 body > .application-container > .application-header .application-header-actions{
-
+    padding-right: 30px;
 }
 .edit-view{
     background: #fff;
@@ -232,6 +232,27 @@ form input[type="submit"].default:hover,.button.default:hover,button.default:hov
     border-radius: 10px;
     padding:15px;
 }
+.tasks-list .task-item > .status{
+    display: inline-block;
+    clear: both;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: #c2c2c2;
+    margin-bottom: 10px;
+}
+.tasks-list .task-item > .status.success{
+    background: #5cb85c;
+    color:#fff;
+}
+.tasks-list .task-item > .status.fault{
+    background: #f44336;
+    color:#fff;
+}
+.tasks-list .task-item > .status.timeout{
+    background: #ffc107;
+}
+
 .tasks-list .task-item .author{
     margin-bottom: 5px;
 }
@@ -250,4 +271,47 @@ form input[type="submit"].default:hover,.button.default:hover,button.default:hov
 }
 .pagination input[type="submit"]{
 
+}
+.filters-row{
+    margin-bottom: 20px;
+}
+.login-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    margin:0px auto;
+    max-width: 360px;
+    padding:30px;
+}
+.login-box .input-wrapper{
+    margin-bottom: 10px;
+}
+.tasks-admin-view{
+    background: #fff;
+    padding:30px;
+}
+.tasks-admin-view > table{
+    font-size: 13px;
+    width:100%;
+    text-align: left;
+    border-spacing: 0px;
+}
+.tasks-admin-view > table thead tr{
+
+}
+.tasks-admin-view > table tbody tr{
+
+}
+.tasks-admin-view > table tbody tr:nth-child(odd){
+    background: #f9f9f9;
+}
+.tasks-admin-view > table tbody tr:nth-child(even){
+    
+}
+
+.tasks-admin-view > table td,.tasks-admin-view > table th{
+    padding:8px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

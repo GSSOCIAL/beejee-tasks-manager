@@ -9,20 +9,22 @@ class EditView extends View{
             foreach($this->metadata as $rows){
                 $row = array();
                 foreach($rows as $cells){
-                    foreach($cells as $cell){
-                        if(is_string($cell)){
-                            if(array_key_exists($cell,$this->focus->defs)){
-                                $defs = $this->focus->defs[$cell];
-                                if(array_key_exists("type",$defs)){
-                                    $field = Field::getField($defs["type"],$defs);
-                                    if($field instanceof Field){
-                                        //Настраиваем отображение поля
-                                        $row[]=array(
-                                            "name"=>$cell,
-                                            "type"=>$field->type,
-                                            "label"=>$field->label,
-                                            "defs"=>$defs
-                                        );
+                    if(is_array($cells)){
+                        foreach($cells as $cell){
+                            if(is_string($cell)){
+                                if(array_key_exists($cell,$this->focus->defs)){
+                                    $defs = $this->focus->defs[$cell];
+                                    if(array_key_exists("type",$defs)){
+                                        $field = Field::getField($defs["type"],$defs);
+                                        if($field instanceof Field){
+                                            //Настраиваем отображение поля
+                                            $row[]=array(
+                                                "name"=>$cell,
+                                                "type"=>$field->type,
+                                                "label"=>$field->label,
+                                                "defs"=>$defs
+                                            );
+                                        }
                                     }
                                 }
                             }

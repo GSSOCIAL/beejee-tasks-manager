@@ -9,9 +9,15 @@ class Application{
     protected $default_module = "Tasks";
 
     function exec(){
+        global $current_user;
         require_once "include/modules.php";
-
         $module = $this->default_module;
+        if(array_key_exists("module",$_REQUEST) && in_array($_REQUEST["module"],$moduleList)){
+            $module = $_REQUEST["module"];
+        }
+        $current_user = new User();
+        $current_user->populate();
+
         $template = new TemplateHandler();
         $this->controller = Controller::getController($module);
         $this->controller->execute();

@@ -21,8 +21,29 @@ class DBManager{
         die($app_strings["DB_CONFIG_NOT_VALID"]);
     }
 
-    function update(){
+    function update($table,$cells,$where){
+        $table = html_entity_decode(addslashes($table));
+        $values = array();
 
+        foreach($cells as $column=>$value){
+            if(empty($value)){
+                $values[] = "`{$column}`=NULL";
+            }else{
+                $values[] = "`{$column}`='{$value}'";
+            }
+        }
+        $values = implode(",",$values);
+
+        $where_cond = implode("AND ",array_map(function($item,$key){
+            return "`{$key}`='{$item}'";
+        },$where,array_keys($where)));
+
+        $query = "UPDATE `{$table}` SET {$values} WHERE {$where_cond}";
+        $result = $this->query($query);
+        if($result){
+            return true;
+        }
+        return false;
     }
     function insert($table,$cells){
         $table = html_entity_decode(addslashes($table));

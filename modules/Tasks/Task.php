@@ -21,5 +21,12 @@ class Task extends Model{
             "type"=>"text",
             "required"=>true,
         ),
+        "status"=>array(
+            "name"=>"status",
+            "label"=>"Статус",
+            "type"=>"enum",
+            "required"=>true,
+            "list"=>"tasks_status"
+        ),
     );
 }

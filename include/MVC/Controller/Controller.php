@@ -20,7 +20,7 @@ class Controller{
             $this->action = $_REQUEST["action"];
         }
         if(array_key_exists("id",$_REQUEST)){
-            $this->record = $_REQUEST["id"];
+            $this->record = intval($_REQUEST["id"]);
         }
         $this->views_map = $this->getViewsMap();
         $focus = Model::getModel($this->module);
@@ -37,29 +37,25 @@ class Controller{
      * Запускает действия
      */
     public function execute(){
+        //Проверяем среди списка доступных видов
+        if(array_key_exists($this->action,$this->views_map)){
+            $this->view = $this->views_map[$this->action];
+        }
+
         //Проверяем, есть ли такой экшн
         $actionName = "action_{$this->action}";
         if(method_exists($this,$actionName)){
             $this->{$actionName}();
-            return $this;
         }
 
-        //Проверяем среди списка доступных видов
-        if(array_key_exists($this->action,$this->views_map)){
-            $this->view = $this->views_map[$this->action];
-            $this->viewFactory = View::getView($this->view,$this->module,$this->focus);
-            return $this;
-        }
-
-        echo($GLOBALS["app_strings"]["LBL_CONTROLLER_ACTION_NOT_FOUND"]);
         return $this;
     }
 
     public function display(){
         global $notifications;
         $notifications->process();
-
-        if($this->viewFactory && $this->viewFactory instanceof View){
+        if(!empty($this->view)){
+            $this->viewFactory = View::getView($this->view,$this->module,$this->focus);
             $this->viewFactory->display();
         }
         return $this;
@@ -86,64 +82,87 @@ class Controller{
         $view = View::getView("edit",$this->module,$this->focus);
         $view->get_metadata();
 
+
+        $fields = array();
         //Соберем изменения
         if($view->metadata && array_key_exists("panels",$view->metadata)){
-            $fields = array();
-            $data = array();
-            $errors = array();
-
             foreach($view->metadata["panels"] as $rows){
                 $fields = array_merge($fields,$rows);
             }
+        }
+        if($view->metadata && array_key_exists("hidden",$view->metadata)){
+            foreach($view->metadata["hidden"] as $field){
+                $fields[] = $field;
+            }
+        }
 
-            //Валидация и обработка полей
-            foreach($fields as $fieldname){
-                $defs = $this->focus->defs[$fieldname];
-                if(is_array($defs)){
-                    $field = Field::getField($defs["type"],$defs);
-                    if($field){
-                        $value = $field->validate();
-                        if($field->validated){
-                            $data[$field->name]=$field->value;
-                        }else{
+        $data = array();
+        $errors = array();
+
+        //Валидация и обработка полей
+        foreach($fields as $fieldname){
+            $defs = $this->focus->defs[$fieldname];
+            if(is_array($defs)){
+                $field = Field::getField($defs["type"],$defs);
+                if($field){
+                    $value = $field->validate();
+                    if($field->validated){
+                        $data[$field->name]=$field->value;
+                    }else{
+                        if(empty($this->focus->{$fieldname})){
                             $errors[]=$field->validation_error;
                         }
                     }
                 }
             }
+        }
 
-            //Есть ошибки
-            if(!empty($errors)){
-                foreach($errors as $error){
-                    $notifications->add("error",$error);
+        //Есть ошибки
+        if(!empty($errors)){
+            foreach($errors as $error){
+                $notifications->add("error",$error);
+            }
+            Application::redirect($this->module,"edit",$this->focus->id);
+        }elseif(!empty($data)){
+            $result = false;
+            if($update){
+                $result = $this->update_bean($data);
+            }else{
+                $result = $this->insert_bean($data);
+                if($result){
+                    $this->focus->id = $result;
                 }
+            }
+            if(!$result){
+                $notifications->add("error","Не удалось обновить запись");
                 Application::redirect($this->module,"edit",$this->focus->id);
-            }elseif(!empty($data)){
-                $result = false;
-                if($update){
-                    $result = $this->update_bean($data);
-                }else{
-                    $result = $this->insert_bean($data);
-                    if($result){
-                        $this->focus->id = $result;
-                    }
-                }
-                if(!$result){
-                    $notifications->add("error","Не удалось обновить запись");
-                    Application::redirect($this->module,"edit",$this->focus->id);
-                }
             }
         }
 
+        $module = $this->module;
         $action = "detail";
         if(array_key_exists("return_action",$_REQUEST)){
             $action = $_REQUEST["return_action"];
         }
-        Application::redirect($this->module,$action,$this->focus->id);
+        if(array_key_exists("return_module",$_REQUEST)){
+            $module = $_REQUEST["return_module"];
+        }
+        Application::redirect($module,$action,$this->focus->id);
     }
 
+    /**
+     * Дополнительный обработчик запросов для записей - конвертация полей в бд значения
+     */
     function update_bean($data){
+        global $db;
+        $post=array();
+        
+        foreach($data as $field=>$value){
+            $post[$field]=$value;
+        }
 
+        $result = $db->update($this->focus->table,$post,array("id"=>$this->focus->id));
+        return $result;
     }
 
     /**

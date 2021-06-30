@@ -32,4 +32,5 @@ $notifications = new Notifications();
 require_once "include/db.php";
 $db = new DBManager();
 
+global $current_user;
 require_once "include/MVC/Application.php";

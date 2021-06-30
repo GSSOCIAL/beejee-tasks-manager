@@ -14,6 +14,7 @@ class Model{
         $query = $db->query("SELECT {$SELECT} FROM {$this->table} t WHERE t.id='{$id}' LIMIT 1");
         $data = $query->fetch_array(MYSQLI_ASSOC);
         if(is_array($data)){
+            $this->id = intval($id);
             foreach($data as $fieldname=>$value){
                 $this->{$fieldname} = $value;
             }

@@ -4,3 +4,9 @@ $app_strings["LBL_TASKS_LIST"] = "Все задачи";
 $app_strings["CREATE_TASK"] = "Создать";
 $app_strings["LBL_CONTROLLER_ACTION_NOT_FOUND"] = "Не найдено действие ";
 $app_strings["DB_CONFIG_NOT_VALID"] = "Проверьте конфигурацию базы данных";
+$app_strings["tasks_status"] = array(
+    ""=>"Не задан",
+    "fault"=>"Не выполнена",
+    "success"=>"Завершена",
+    "timeout"=>"Просрочена",
+);
