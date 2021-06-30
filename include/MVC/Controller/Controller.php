@@ -119,10 +119,18 @@ class Controller{
                 }
                 Application::redirect($this->module,"edit",$this->focus->id);
             }elseif(!empty($data)){
+                $result = false;
                 if($update){
-                    $this->update_bean($data);
+                    $result = $this->update_bean($data);
                 }else{
-                    $this->insert_bean($data);
+                    $result = $this->insert_bean($data);
+                    if($result){
+                        $this->focus->id = $result;
+                    }
+                }
+                if(!$result){
+                    $notifications->add("error","Не удалось обновить запись");
+                    Application::redirect($this->module,"edit",$this->focus->id);
                 }
             }
         }

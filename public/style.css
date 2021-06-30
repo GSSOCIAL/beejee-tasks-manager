@@ -54,13 +54,16 @@ body > .application-container > .application-header .application-navigation ul{
 }
 body > .application-container > .application-header .application-navigation ul > li{
     float:left;
+    padding:0px !important;
 }
 body > .application-container > .application-header .application-navigation ul > li > a{
     cursor: pointer;
     padding:8px;
     text-decoration: none;
     display: inline-block;
+    color:inherit;
 }
+
 body > .application-container > .application-header .application-header-actions{
 
 }
@@ -101,6 +104,7 @@ body > .application-container > .application-header .application-header-actions{
     width:100%;
     flex:1;
 }
+
 form .input-wrapper{
     width:100%;
 }

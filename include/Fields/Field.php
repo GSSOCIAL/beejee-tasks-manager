@@ -32,6 +32,7 @@ class Field{
         $this->s->assign("name",$this->name);
         $this->s->assign("label",$this->label);
         $this->s->assign("required",$this->required);
+        $this->s->assign("value",$this->value);
 
         $this->s->display($template);
     }
@@ -42,8 +43,15 @@ class Field{
             if(array_key_exists("required",$defs)) $this->required = $defs['required']==true;
             if(array_key_exists("length",$defs)) $this->length = intval($defs['length']);
             if(array_key_exists("label",$defs)) $this->label = trim($defs['label']);
+            if(array_key_exists("value",$defs)) $this->value = trim($defs['value']);
         }
+        $this->populate_value();
         return $this;
+    }
+
+    public function populate_value(){
+        $value = trim($this->value);
+        $this->value = $value;
     }
 
     /**

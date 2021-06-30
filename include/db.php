@@ -25,7 +25,6 @@ class DBManager{
 
     }
     function insert($table,$cells){
-        var_dump($cells);
         $table = html_entity_decode(addslashes($table));
         
         $columns = array();
@@ -41,10 +40,17 @@ class DBManager{
         $values = implode(",",$values);
 
         $query = "INSERT INTO `{$table}` (`$columns`) VALUES ($values)";
-        var_dump($query);
-        die();
+        $result = $this->query($query);
+        if($result){
+            return $this->c->insert_id;
+        }
+        return false;
     }
-    function query($query){
 
+    function query($query){
+        if(!empty($query) && $this->c){
+            return $this->c->query($query);
+        }
+        return NULL;
     }
 }
