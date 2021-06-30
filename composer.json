@@ -1,0 +1,25 @@
+{
+    "name": "salesagility/suitecrm",
+    "description": "SuiteCRM",
+    "homepage": "https://suitecrm.com",
+    "type": "project",
+    "license": "GPL-3.0",
+    "authors": [],
+    "minimum-stability": "dev",
+    "support": {},
+    "config": {
+      "vendor-dir": "vendor",
+      "platform": {
+        "php": "5.5.9"
+      },
+      "optimize-autoloader": true,
+      "sort-packages": true
+    },
+    "require": {
+      "smarty/smarty": "^2.6"
+    },
+    "scripts": {},
+    "prefer-stable": true,
+    "autoload": {},
+    "extra": {}
+} 
