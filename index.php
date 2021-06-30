@@ -1,4 +1,4 @@
 <?php
 include "include/entryPoint.php";
-$app = new Application();
+$GLOBALS["APP"] = $app = new Application();
 $app->exec();

@@ -14,6 +14,7 @@ if(file_exists($autoloader)) {
 
 if(file_exists("config.php")){
     require_once "config.php";
+    $GLOBALS["config"] = isset($application_config) && is_array($application_config)?$application_config:array();
 }
 
 if(!is_dir("cache")){
@@ -22,5 +23,7 @@ if(!is_dir("cache")){
 
 require_once "include/utils.php";
 require_once "include/modules.php";
+require_once "include/locale.php";
 
+require_once "include/TemplateHandler.php";
 require_once "include/MVC/Application.php";

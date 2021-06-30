@@ -11,7 +11,7 @@ class View{
         }
     }
 
-    public function setup(){
+    public function setup($template=null){
         if(!class_exists("Smarty")){
             die("Smarty not initialized. Please, run composer update");
         }
@@ -23,6 +23,10 @@ class View{
             mkdir("cache/templates");
         }
 
+        if($template && file_exists($template)){
+            $this->template = $template;
+        }
+        
         return $this;
     }
 
@@ -35,18 +39,26 @@ class View{
     static function getView($view_name="index",$module=null){
         $ControllerName =  ucfirst($view_name) . "View";
         $view = null;
+        $template = null;
 
         //Подключим стандартную вьюху
         if(file_exists("include/MVC/View/views/view.{$view_name}.php")){
             require_once "include/MVC/View/views/view.{$view_name}.php";
         }
 
-        //Проверим, есть ли отдельный вид для модуля
-        if(file_exists("modules/{$module}/views/view.{$view_name}.php")){
-            require_once "modules/{$module}/views/view.{$view_name}.php";
-            $moduleViewController = ucfirst($module).$ControllerName;
-            if(class_exists($moduleViewController)){
-                $view = new $moduleViewController();
+        if(!empty($module)){
+            //Проверим, есть ли отдельный вид для модуля
+            if(file_exists("modules/{$module}/views/view.{$view_name}.php")){
+                require_once "modules/{$module}/views/view.{$view_name}.php";
+                $moduleViewController = ucfirst($module).$ControllerName;
+                if(class_exists($moduleViewController)){
+                    $view = new $moduleViewController();
+                }
+            }
+
+            //Шаблон
+            if(file_exists("modules/{$module}/views/templates/{$view_name}view.tpl")){
+                $template = "modules/{$module}/views/templates/{$view_name}view.tpl";
             }
         }
 
@@ -60,7 +72,7 @@ class View{
             $view = new View();
         }
 
-        $view->setup();
+        $view->setup($template);
         return $view;
     }
 }

@@ -1,0 +1,65 @@
+body{
+    margin:0px;
+    padding:0px;
+    font-size: 15px;
+    background: #f5f7fb;
+    color:#0c0f31;
+}
+body *{
+    box-sizing: border-box;
+}
+body > .application-container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+body > .application-container > .application-header{
+    background: #fff;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+body > .application-container > .page-container{
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: row;
+    flex:1;
+}
+body > .application-container > .page-container > .sidebar-container{
+
+}
+body > .application-container > .page-container > .page-content-wrapper{
+    width:100%;
+    flex:1;
+    padding:30px 60px;
+}
+/**Хедер**/
+body > .application-container > .application-header .application-logo{
+    padding:10px 0px;
+}
+body > .application-container > .application-header .application-navigation{
+    width:100%;
+    flex:1;
+    padding:10px 30px;
+}
+body > .application-container > .application-header .application-navigation ul{
+    margin:0px;
+    padding:0px;
+    list-style: none;
+    display: inline-block;
+}
+body > .application-container > .application-header .application-navigation ul > li{
+    float:left;
+}
+body > .application-container > .application-header .application-navigation ul > li > a{
+    cursor: pointer;
+    padding:8px;
+    text-decoration: none;
+    display: inline-block;
+}
+body > .application-container > .application-header .application-header-actions{
+
+}
